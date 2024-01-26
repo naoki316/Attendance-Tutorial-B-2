@@ -2,13 +2,12 @@ class User < ApplicationRecord
   # 「remember_token」という仮想の属性を作成します。
   attr_accessor :remember_token
   before_save { self.email = email.downcase }
-
-  validates :name,  presence: true, length: { maximum: 50 }
-
+  
+  validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 100 },
-                    format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: true    
+             format: { with: VALID_EMAIL_REGEX },
+             uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
 
@@ -27,15 +26,16 @@ class User < ApplicationRecord
   def User.new_token
     SecureRandom.urlsafe_base64
   end
-
+  
   # 永続セッションのためハッシュ化したトークンをデータベースに記憶します。
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
-
+  
   # トークンがダイジェストと一致すればtrueを返します。
-  def authenticated?(remember_token)
+  def authentivated?(remember_token)
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
+
 end
