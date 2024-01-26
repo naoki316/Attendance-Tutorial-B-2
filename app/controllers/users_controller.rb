@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
   def show
-    @user = User.find(params[:id])
   end
   
   def new
@@ -9,12 +8,21 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(user_params)
-    if @user.save
-    
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user && user.authenticate(params[:session][:password])
+      log_in user
+      remember user
+      redirect_to user
     else
-      render'new', status: :unprocessable_entity
+      flash.now[:danger] = '認証に失敗しました。'
+      render :new
     end
+  end
+  
+  def destroy
+    log_out
+    flash[:success] = 'ログアウトしました。'
+    redirect_to root_url
   end
 
   private
