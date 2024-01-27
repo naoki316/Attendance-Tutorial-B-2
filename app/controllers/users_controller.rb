@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :logged_in_user, only: [:show, :edit, :update]
+  before_action :correct_user, only: [:edit, :update]
 
   def show
   end
@@ -8,25 +11,52 @@ class UsersController < ApplicationController
   end
   
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
-    if user && user.authenticate(params[:session][:password])
-      log_in user
-      remember user
-      redirect_to user
+    @user = User.new(user_params)
+    if @user.save
+      log_in @user
+      flash[:success] = '新規作成に成功しました。'
+      redirect_to @user
     else
-      flash.now[:danger] = '認証に失敗しました。'
-      render :new
+      render 'new', status: :unprocessable_entity
     end
   end
   
-  def destroy
-    log_out
-    flash[:success] = 'ログアウトしました。'
-    redirect_to root_url
+  def edit
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "ユーザー情報を更新しました。"
+      redirect_to @user
+    else
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
   private
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+    
+    # beforeフィルター
+    
+    # paramsハッシュからユーザーを取得します。
+    def set_user
+      @user = User.find(params[:id])
+    end
+    
+    # ログイン済みのユーザーか確認します。
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = "ログインして下さい。"
+        redirect_to login_url
+      end
+    end
+    
+    # アクセスしたユーザーが現在ログインしているユーザーか確認します。
+    def corrent_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless @user == current_users
     end
 end
