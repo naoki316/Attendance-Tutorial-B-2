@@ -9,7 +9,7 @@ gem "sqlite3", "~> 1.4"
 gem 'faker'
 gem "puma", ">= 5.0"
 gem "importmap-rails"
-gem "turbo-rails"
+gem 'turbo-rails'
 gem "stimulus-rails"
 gem "jbuilder"
 gem "bootsnap", require: false
