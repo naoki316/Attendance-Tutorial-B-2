@@ -52,9 +52,9 @@
             <% @total_working_times = @total_working_times.to_f + str_times.to_f %>
           <% end %>
         </td>
-        <td></td>
+        <td><%= day.note %></td>
       </tr>
-      <% end %>
+    <% end %>
     </tbody>
     
     <tfoot>
