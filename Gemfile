@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 ruby "3.2.1"
+gem 'will_paginate', '~> 3.3'
 gem "rails", "~> 7.1.0"
 gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
