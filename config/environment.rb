@@ -5,5 +5,5 @@ require_relative "application"
 Rails.application.initialize!
 
 # ページネーションラベルの設定
-WillPaginate::ViewHelpers.pagination_options[:previous_label] = '前ページ'
-WillPaginate::ViewHelpers.pagination_options[:next_label] = '次ページ'
+WillPaginate::I18n.t('previous_label', 'Previous')
+WillPaginate::I18n.t('next_label', 'Next')
