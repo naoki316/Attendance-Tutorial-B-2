@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.paginate(page: params[:page]).search(params[:search])
   end
 
 
@@ -79,12 +79,7 @@ class UsersController < ApplicationController
       format.turbo_stream
     end
   end
-
-
-
-
-
-
+  
   private
 
 
