@@ -10,6 +10,9 @@
 
 # coding: utf-8
 
+require 'faker'
+
+
 User.create!(name: "Sample User",
              email: "sample@email.com",
              password: "password",
