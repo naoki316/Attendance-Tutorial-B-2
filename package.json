@@ -1,0 +1,22 @@
+{
+  "name": "attendance",
+  "version": "1.0.0",
+  "description": "attendance",
+  "main": "attendance",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "attendance"
+  },
+  "repository": {
+    "type": "git",
+    "url": "attendance_system_b"
+  },
+  "keywords": [
+    "attendancr"
+  ],
+  "author": "",
+  "license": "ISC"
+}
