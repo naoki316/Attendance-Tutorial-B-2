@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 
-ruby "3.2.1"
+ruby "3.2.3"
 gem "rails", "~> 7.1.0"
 gem 'bcrypt'
 gem "sprockets-rails"
